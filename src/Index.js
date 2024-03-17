@@ -1,17 +1,17 @@
 import React from "react";
 import Platform from "./Platform";
+import SortComponent from "./SortComponent";
+
 const Index = () => {
   return (
     <>
       <div className="w-full text-white p-6 text-2xl flex justify-center border-b border-white">
-        The Contests Calender <span className="text-pink-600">_</span>
+        the contests calender
+        <span className="text-pink-600 font-semibold">_ </span>
       </div>
 
       <div className="p-4">
-        <div className="text-white text-xl pt-4">Upcoming Contests</div>
-        <Platform platformName="Leetcode" contestDayIndex={0} />
-        <Platform platformName="Codechef" contestDayIndex={3} />
-        <Platform platformName="Codeforces" contestDayIndex={4} />
+        <SortComponent />
       </div>
     </>
   );

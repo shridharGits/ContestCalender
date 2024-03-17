@@ -1,32 +1,41 @@
 import React, { useState } from "react";
 import { monthNames } from "./utils";
-const Platform = ({ platformName, contestDayIndex }) => {
-  const nextDate = (dayIndex) => {
-    var today = new Date();
-    today.setDate(
-      today.getDate() + ((dayIndex - 1 - today.getDay() + 7) % 7) + 1
-    );
-    return today;
-  };
-
+import Drawer from "./Drawer";
+const Platform = (contestData) => {
+  const [actualDate, setTimeRemaining] = useState(
+    new Date(contestData.contestData.actualDate)
+  );
+  const [isOpen, setIsOpen] = useState(false);
   const getMonthName = (dateWithTime) => {
     const date = dateWithTime.split(",");
     const monthIndex = date[0].split("/")[1];
-    // console.log();
     return `${parseInt(date[0])} ${monthNames[parseInt(monthIndex) - 1]}`;
   };
-
-  const [contestDay, setContestDay] = useState(
-    nextDate(contestDayIndex).toLocaleString("en-IN")
-  );
-  getMonthName(contestDay);
+  console.log(actualDate);
+  const handleDrawer = () => {
+    setIsOpen((open) => !open);
+  };
+  // getMonthName(contestDay);
   return (
-    <div className="flex w-full flex-row border border-pink-600 rounded-md text-white mt-4">
-      <span className="w-full h-16 text-2xl p-2 py-4">{platformName}</span>
-      <span className="text-center border-l p2 border-pink-600 py-2">
-        {getMonthName(contestDay)}
-      </span>
-    </div>
+    <>
+      <div
+        className={`bg-neutral-900 flex w-full flex-row border border-pink-600 rounded-t-md text-white mt-4`}
+        onClick={handleDrawer}>
+        <span className="w-full h-16 text-2xl p-2 py-4">
+          {contestData.contestData.platform}
+        </span>
+        <span className="text-center border-l p2 border-pink-600 py-2">
+          {actualDate.toDateString()}
+        </span>
+      </div>
+      {isOpen && (
+        <Drawer
+          isOpen={isOpen}
+          actualDate={actualDate}
+          duration={contestData.contestData.duration}
+        />
+      )}
+    </>
   );
 };
 
