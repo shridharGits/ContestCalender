@@ -17,7 +17,7 @@ const Platform = ({ platformName, contestDayIndex }) => {
   };
 
   const [contestDay, setContestDay] = useState(
-    nextDate(contestDayIndex).toLocaleString()
+    nextDate(contestDayIndex).toLocaleDateString()
   );
   getMonthName(contestDay);
   return (
